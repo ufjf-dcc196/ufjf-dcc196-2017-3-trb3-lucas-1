@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DCC196_Gestao_de_Tarefas</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="descri_ao">Descriçao</string>
+    <string name="nova_tarefa">Nova Tarefa:</string>
+    <string name="titulo">Titulo</string>
+</resources>
