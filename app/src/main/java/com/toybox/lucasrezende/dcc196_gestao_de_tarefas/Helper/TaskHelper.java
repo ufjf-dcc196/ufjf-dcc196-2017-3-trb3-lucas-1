@@ -82,6 +82,32 @@ public class TaskHelper {
         }
     }
 
+    public void filtraTag(long idTag) {
+        try {
+            if(idTag == 1) {
+                PushTask();
+            }else {
+                SQLiteDatabase db = getTaskAdapter().getTarefasDBHelper().getReadableDatabase();
+                String rawQuery = "SELECT a." + TaskContract.Tarefa._ID
+                        + ", " + TaskContract.Tarefa.COLUMN_NAME_TITULO
+                        + ", " + TaskContract.Tarefa.COLUMN_NAME_STATUS
+                        + " FROM " + TaskContract.Tarefa.TABLE_NAME + " AS a "
+                        + " INNER JOIN " + TaskContract.Composicao.TABLE_NAME + " AS b "
+                        + " INNER JOIN " + TaskContract.Tags.TABLE_NAME + " AS c "
+                        + " ON a." + TaskContract.Tarefa._ID + " = b." + TaskContract.Composicao.COLUMN_NAME_ID_TAREFA
+                        + " AND b." + TaskContract.Composicao.COLUMN_NAME_ID_TAG + " = c." + TaskContract.Tags._ID
+                        + " WHERE c." + TaskContract.Tags._ID + " = " + idTag;
+                ;
+                Cursor c = db.rawQuery(rawQuery, null);
+                taskAdapter.changeCursor(c);
+            }
+        } catch (Exception e) {
+            Log.e(Tag, "M-filtraTag");
+            Log.e(Tag, e.getLocalizedMessage());
+            Log.e(Tag, e.getStackTrace().toString());
+        }
+    }
+
     public long AddNewTask(Task newTask) {
         try {
             SQLiteDatabase db = getTaskAdapter().getTarefasDBHelper().getReadableDatabase();

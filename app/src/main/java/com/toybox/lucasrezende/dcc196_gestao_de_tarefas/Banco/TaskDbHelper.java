@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Helper.TagHelper;
+
 
 public class TaskDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 2;
@@ -30,6 +32,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
             sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_TAREFAS);
             sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_TAGS);
             sqLiteDatabase.execSQL(TaskContract.SQL_CREATE_COMPOSICAO);
+            TagHelper.getInstance().AddNewTag("*Selecione");
             Log.e(Tag, "Tabelas Criadas Com Sucesso");
         }catch (Exception e){
             Log.e(Tag, "On Create");

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         spnFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                TaskHelper.getInstance().filtraTag(l);
             }
 
             @Override

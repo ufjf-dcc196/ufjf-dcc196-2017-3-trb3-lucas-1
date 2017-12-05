@@ -143,10 +143,13 @@ public class TagHelper {
             return sb;
         } catch (Exception e) {
             Log.e(Tag, rawQuery);
-            Log.e(Tag, "M-Get Locatarios");
+            Log.e(Tag, "M-GetTagsForTask");
             Log.e(Tag , e.getLocalizedMessage());
             Log.e(Tag , e.getStackTrace().toString());
         }
         return null;
     }
+
+
+
 }
