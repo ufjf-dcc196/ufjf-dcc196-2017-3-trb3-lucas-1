@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Helper.TagHelper;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Helper.TaskHelper;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.MainActivity;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Model.Task;
@@ -27,6 +29,7 @@ public class TaskView extends AppCompatActivity {
     private Spinner dificuldade;
     private Button apagar;
     private Button editar;
+    private TextView tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +42,15 @@ public class TaskView extends AppCompatActivity {
         dificuldade = (Spinner) findViewById(R.id.spnDificuldadeView);
         apagar = (Button)findViewById(R.id.btnApagarTarefa);
         editar = (Button)findViewById(R.id.btnEditarTarefa);
+        tags = (TextView)findViewById(R.id.lstTagsForTask);
         ArrayAdapter<String> dificuldadesPossiveis = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,TaskHelper.getInstance().getDificuldadeList());
         ArrayAdapter<String> statusPossiveis = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,TaskHelper.getInstance().getStatusList());
 
 
 
         myTask = TaskHelper.getInstance().SearchForTask(Integer.parseInt(getIntent().getStringExtra("id_Task")));
+        tags.setText(TagHelper.getInstance().getTagsForTask(Integer.parseInt(getIntent().getStringExtra("id_Task"))));
+
 
         titulo.setText(myTask.getTitulo().toString());
         descricao.setText(myTask.getDescricao().toString());
@@ -74,7 +80,6 @@ public class TaskView extends AppCompatActivity {
                 //myTask.setStatus();
                 //envia alteraçoes
                 TaskHelper.getInstance().UpdateTask(myTask);
-                //TaskHelper.getInstance().PushTask();
                 Toast.makeText(getApplicationContext(), "Tarefa Atualizada com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TaskView.this, MainActivity.class);
                 startActivity(intent);

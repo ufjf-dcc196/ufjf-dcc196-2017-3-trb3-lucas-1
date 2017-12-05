@@ -22,6 +22,7 @@ public class TagHelper {
     private static TagHelper instance = null;
     private static String Tag = "TagHelper";
     TagAdapter tagAdapter = null;
+    TagAdapter tagAdapterPorTask = null;
     private ArrayList<String> tags = new ArrayList<>();
 
     public static TagHelper getInstance() {
@@ -120,5 +121,32 @@ public class TagHelper {
             Log.e(Tag, e.getStackTrace().toString());
         }
         return -1;
+    }
+
+    public StringBuilder getTagsForTask(int id_task) {
+        String rawQuery = "";
+        StringBuilder sb = new StringBuilder();
+        try {
+            SQLiteDatabase db = getTagAdapter().getTarefasDBHelper().getReadableDatabase();
+            rawQuery = "SELECT " + TaskContract.Tags.COLUMN_NAME_TAG + " FROM " + TaskContract.Tarefa.TABLE_NAME + " AS a "
+                    + " INNER JOIN " + TaskContract.Composicao.TABLE_NAME + " AS b "
+                    + " INNER JOIN " + TaskContract.Tags.TABLE_NAME + " AS c "
+                    + " ON a." + TaskContract.Tarefa._ID + " = b." + TaskContract.Composicao.COLUMN_NAME_ID_TAREFA
+                    + " AND b." + TaskContract.Composicao.COLUMN_NAME_ID_TAG + " = c." + TaskContract.Tags._ID
+                    + " WHERE a." + TaskContract.Tarefa._ID + " = " + id_task ;
+            String[] arg = {String.valueOf(id_task)};
+            Cursor c = db.rawQuery(rawQuery,null);
+            while (c.moveToNext()) {
+                sb.append(c.getString(0));
+                sb.append(",");
+            }
+            return sb;
+        } catch (Exception e) {
+            Log.e(Tag, rawQuery);
+            Log.e(Tag, "M-Get Locatarios");
+            Log.e(Tag , e.getLocalizedMessage());
+            Log.e(Tag , e.getStackTrace().toString());
+        }
+        return null;
     }
 }

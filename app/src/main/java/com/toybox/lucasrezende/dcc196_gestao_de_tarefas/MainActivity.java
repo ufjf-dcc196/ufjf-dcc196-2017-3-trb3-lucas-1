@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Adapter.TagAdapter;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Banco.TaskDbHelper;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Forms.NewTask;
 import com.toybox.lucasrezende.dcc196_gestao_de_tarefas.Helper.TagHelper;
